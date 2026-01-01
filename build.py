@@ -78,5 +78,14 @@ def build():
 
     print(f"Build complete. Processed {len(posts)} posts.")
 
+    # 5. Format output with djlint
+    try:
+        import subprocess
+        print("Formatting output with djlint...")
+        subprocess.run(["uv", "run", "--with", "djlint", "djlint", output_dir, "--reformat", "--quiet"], check=False)
+        print("Formatting complete.")
+    except Exception as e:
+        print(f"Warning: Failed to format output: {e}")
+
 if __name__ == "__main__":
     build()
