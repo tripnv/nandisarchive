@@ -10,6 +10,8 @@
 import os
 import markdown
 import frontmatter
+from datetime import datetime
+import email.utils
 from jinja2 import Environment, FileSystemLoader
 from scripts.date_utils import determine_dates, format_date, format_datetime
 
@@ -47,6 +49,7 @@ def build():
                 'date': format_date(created_date), # For the Archive list
                 'created_display': format_datetime(created_date),
                 'modified_display': format_datetime(modified_date) if show_modified else None,
+                'rss_date': email.utils.format_datetime(created_date),
                 'url': post_url,
                 'content': content_html
             }
@@ -76,9 +79,18 @@ def build():
     with open(os.path.join(output_dir, 'about.html'), 'w') as f:
         f.write(output_about)
 
+    # 5. Handle RSS Feed
+    rss_template = env.get_template('rss.xml')
+    output_rss = rss_template.render(
+        posts=posts, 
+        last_build_date=email.utils.format_datetime(datetime.now())
+    )
+    with open(os.path.join(output_dir, 'feed.xml'), 'w') as f:
+        f.write(output_rss)
+
     print(f"Build complete. Processed {len(posts)} posts.")
 
-    # 5. Format output with djlint
+    # 6. Format output with djlint
     try:
         import subprocess
         print("Formatting output with djlint...")
