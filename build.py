@@ -11,7 +11,7 @@ import os
 import markdown
 import frontmatter
 from jinja2 import Environment, FileSystemLoader
-from scripts.date_utils import determine_dates, format_date
+from scripts.date_utils import determine_dates, format_date, format_datetime
 
 # Setup
 posts_dir = 'posts'
@@ -45,8 +45,8 @@ def build():
             post_info = {
                 'title': post_data.get('title', 'Untitled'),
                 'date': format_date(created_date), # For the Archive list
-                'created_display': format_date(created_date),
-                'modified_display': format_date(modified_date) if show_modified else None,
+                'created_display': format_datetime(created_date),
+                'modified_display': format_datetime(modified_date) if show_modified else None,
                 'url': post_url,
                 'content': content_html
             }
