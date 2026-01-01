@@ -1,0 +1,15 @@
+repos:
+-   repo: local
+    hooks:
+    -   id: build-site
+        name: Build Static Site
+        entry: uv run build.py
+        language: system
+        pass_filenames: false
+        always_run: true
+    -   id: add-built-files
+        name: Add Built Files
+        entry: git add public/
+        language: system
+        pass_filenames: false
+        always_run: true
