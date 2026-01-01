@@ -1,87 +1,93 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }} - Nandi's archive</title>
-    <style>
-        body {
-            font-family: "Times New Roman", Times, serif;
-            line-height: 1.3;
-            color: #fff;
-            max-width: 650px;
-            margin: 40px auto;
-            padding: 0 20px;
-            background-color: #000;
-        }
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{{ title }} - Nandi's archive</title>
+        <style>
+            body {
+                font-family: "Times New Roman", Times, serif;
+                line-height: 1.3;
+                color: #fff;
+                max-width: 650px;
+                margin: 40px auto;
+                padding: 0 20px;
+                background-color: #000;
+            }
 
-        h1, h2, h3 {
-            color: #fff;
-            margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
+            h1,
+            h2,
+            h3 {
+                color: #fff;
+                margin-top: 1.5rem;
+                margin-bottom: 0.5rem;
+            }
 
-        p {
-            margin-bottom: 0.8rem;
-        }
+            p {
+                margin-bottom: 0.8rem;
+            }
 
-        img {
-            max-width: 100%;
-            height: auto;
-            margin: 1rem 0;
-        }
+            img {
+                max-width: 100%;
+                height: auto;
+                margin: 1rem 0;
+            }
 
-        .post-section {
-            margin-top: 0.5rem;
-            border-top: 1px solid #333;
-            padding-top: 1rem;
-        }
+            .post-section {
+                margin-top: 0.5rem;
+                border-top: 1px solid #333;
+                padding-top: 1rem;
+            }
 
-        .post-date {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-        }
+            .post-date {
+                color: #666;
+                font-size: 0.9rem;
+                margin-bottom: 1.5rem;
+                display: flex;
+                justify-content: space-between;
+            }
 
-        /* Hyperlinks */
-        a, a:visited {
-            color: #99CCFF;
-            text-decoration: underline;
-        }
+            /* Hyperlinks */
+            a,
+            a:visited {
+                color: #99ccff;
+                text-decoration: underline;
+            }
 
-        a:hover {
-            color: #2277FF;
-        }
+            a:hover {
+                color: #2277ff;
+            }
 
-        nav a {
-            text-decoration: none;
-        }
-    </style>
-</head>
-<body>
+            nav a {
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <section>
+                <nav
+                    style="
+                        text-align: right;
+                        font-size: 0.9rem;
+                        margin-bottom: 0.2rem;
+                    "
+                >
+                    <a href="../index.html">Archive</a> &nbsp; &nbsp;
+                    <a href="../about.html">About me</a>
+                </nav>
+            </section>
 
-    <main>
-        <section>
-            <nav style="text-align: right; font-size: 0.9rem; margin-bottom: 0.2rem;">
-                <a href="../index.html">Archive</a> &nbsp; &nbsp; <a href="../about.html">About me</a>
-            </nav>
-        </section>
-
-        <article class="post-section">
-            <h1>{{ title }}</h1>
-            <div class="post-date">
-                <span>{{ created_display }}</span>
-                {% if modified_display %}
-                <span>Updated: {{ modified_display }}</span>
-                {% endif %}
-            </div>
-            <div class="post-content">
-                {{ content }}
-            </div>
-        </article>
-    </main>
-
-</body>
+            <article class="post-section">
+                <h1>{{ title }}</h1>
+                <div class="post-date">
+                    <span>{{ created_display }}</span>
+                    {% if modified_display %}
+                    <span>Updated: {{ modified_display }}</span>
+                    {% endif %}
+                </div>
+                <div class="post-content">{{ content }}</div>
+            </article>
+        </main>
+    </body>
 </html>

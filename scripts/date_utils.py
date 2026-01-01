@@ -24,7 +24,9 @@ def get_git_dates(filepath):
         created = commits[-1].committed_datetime
         
         return created, last_modified
-    except Exception:
+    except Exception as e:
+        import sys
+        print(f"Warning: Git error in get_git_dates: {e}", file=sys.stderr)
         return None, None
 
 def to_naive(dt):
@@ -59,7 +61,9 @@ def determine_dates(filepath):
         repo = git.Repo('.', search_parent_directories=True)
         if repo.is_dirty(path=filepath):
             is_dirty = True
-    except:
+    except Exception as e:
+        import sys
+        print(f"Warning: Git error in determine_dates (dirty check): {e}", file=sys.stderr)
         pass
 
     if is_dirty:
