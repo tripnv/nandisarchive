@@ -33,10 +33,10 @@ def to_naive(dt):
         return dt.replace(tzinfo=None)
     return dt
 
-def determine_dates(filepath, post_data=None):
+def determine_dates(filepath):
     """
     Determines the creation and modification dates for a file,
-    using Git history, filesystem status (dirty check), and optional frontmatter overrides.
+    using Git history and filesystem status (dirty check).
     
     Returns:
         (created_date, modified_date, show_modified_boolean)
@@ -69,18 +69,7 @@ def determine_dates(filepath, post_data=None):
     else:
         modified_date = datetime.fromtimestamp(os.path.getmtime(filepath))
     
-    # 3. Allow frontmatter override (optional)
-    if post_data and 'date' in post_data:
-        date_obj = post_data['date']
-        if isinstance(date_obj, str):
-            try:
-                date_obj = datetime.strptime(date_obj, '%Y-%m-%d')
-            except ValueError:
-                pass
-        if isinstance(date_obj, datetime):
-            created_date = date_obj
-
-    # 4. Logic for showing modified date
+    # 3. Logic for showing modified date
     show_modified = False
     # Compare just the dates (ignoring time)
     if modified_date.date() > created_date.date():

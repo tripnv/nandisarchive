@@ -34,7 +34,7 @@ def build():
             post_data = frontmatter.load(filepath)
             
             # Get dates using outsourced logic
-            created_date, modified_date, show_modified = determine_dates(filepath, post_data)
+            created_date, modified_date, show_modified = determine_dates(filepath)
 
             # Convert Markdown to HTML
             content_html = markdown.markdown(post_data.content, extensions=['fenced_code', 'tables'])
