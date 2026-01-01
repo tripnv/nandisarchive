@@ -11,8 +11,7 @@ import os
 import markdown
 import frontmatter
 from jinja2 import Environment, FileSystemLoader
-from datetime import datetime
-import git
+from scripts.date_utils import determine_dates, format_date
 
 # Setup
 posts_dir = 'posts'
@@ -25,32 +24,6 @@ os.makedirs(os.path.join(output_dir, 'posts'), exist_ok=True)
 
 env = Environment(loader=FileSystemLoader(templates_dir))
 
-def get_git_dates(filepath):
-    try:
-        repo = git.Repo('.', search_parent_directories=True)
-        # Get relative path for git
-        rel_path = os.path.relpath(filepath, repo.working_dir)
-        
-        # Get all commits for this file
-        commits = list(repo.iter_commits(paths=rel_path))
-        
-        if not commits:
-            return None, None
-
-        # Last commit = Last modified
-        last_modified = commits[0].committed_datetime
-        # First commit = Created
-        created = commits[-1].committed_datetime
-        
-        return created, last_modified
-    except Exception:
-        return None, None
-
-def format_date(dt):
-    if dt is None:
-        return ""
-    return dt.strftime('%Y-%m-%d')
-
 def build():
     posts = []
     
@@ -60,57 +33,8 @@ def build():
             filepath = os.path.join(posts_dir, filename)
             post_data = frontmatter.load(filepath)
             
-            # Get dates
-            git_created, git_modified = get_git_dates(filepath)
-            
-            # Helper to make naive for comparison
-            def to_naive(dt):
-                if dt and dt.tzinfo:
-                    return dt.replace(tzinfo=None)
-                return dt
-
-            git_created = to_naive(git_created)
-            git_modified = to_naive(git_modified)
-
-            # Determine Creation Date (Git > Filesystem)
-            if git_created:
-                created_date = git_created
-            else:
-                created_date = datetime.fromtimestamp(os.path.getctime(filepath))
-
-            # Determine Modified Date
-            # Check if file is dirty (modified locally but not committed)
-            is_dirty = False
-            try:
-                repo = git.Repo('.', search_parent_directories=True)
-                if repo.is_dirty(path=filepath):
-                    is_dirty = True
-            except:
-                pass
-
-            if is_dirty:
-                modified_date = datetime.fromtimestamp(os.path.getmtime(filepath))
-            elif git_modified:
-                modified_date = git_modified
-            else:
-                modified_date = datetime.fromtimestamp(os.path.getmtime(filepath))
-            
-            # Allow frontmatter override (optional, but requested not to rely on it)
-            if 'date' in post_data:
-                 date_obj = post_data['date']
-                 if isinstance(date_obj, str):
-                    try:
-                        date_obj = datetime.strptime(date_obj, '%Y-%m-%d')
-                    except ValueError:
-                        pass
-                 if isinstance(date_obj, datetime):
-                     created_date = date_obj
-
-            # Logic for showing modified date
-            show_modified = False
-            # Compare just the dates (ignoring time) to avoid noise
-            if modified_date.date() > created_date.date():
-                 show_modified = True
+            # Get dates using outsourced logic
+            created_date, modified_date, show_modified = determine_dates(filepath, post_data)
 
             # Convert Markdown to HTML
             content_html = markdown.markdown(post_data.content, extensions=['fenced_code', 'tables'])
