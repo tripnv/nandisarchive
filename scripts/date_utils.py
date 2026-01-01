@@ -75,8 +75,8 @@ def determine_dates(filepath):
     
     # 3. Logic for showing modified date
     show_modified = False
-    # Compare just the dates (ignoring time)
-    if modified_date.date() > created_date.date():
+    # Compare full datetime to show same-day updates
+    if modified_date > created_date:
             show_modified = True
 
     return created_date, modified_date, show_modified
