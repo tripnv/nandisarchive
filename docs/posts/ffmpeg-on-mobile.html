@@ -17,6 +17,13 @@
                 margin: 40px auto;
                 padding: 0 20px;
                 background-color: #000;
+                display: flex;
+                flex-direction: column;
+                min-height: 90vh;
+            }
+
+            main {
+                flex: 1;
             }
 
             h1,
@@ -68,7 +75,8 @@
                 margin-top: 3rem;
                 border-top: 1px solid #333;
                 padding-top: 1rem;
-                text-align: right;
+                display: flex;
+                justify-content: space-between;
                 font-size: 0.9rem;
             }
         </style>
@@ -78,8 +86,7 @@
             <section>
                 <nav style="text-align: right; font-size: 0.9rem; margin-bottom: 0.2rem">
                     <a href="../index.html">Archive</a> &nbsp; &nbsp;
-                    <a href="../about.html">About me</a> &nbsp; &nbsp;
-                    <a href="../feed.xml">RSS</a>
+                    <a href="../about.html">About me</a>
                 </nav>
             </section>
             <article class="post-section">
@@ -115,6 +122,7 @@ termux-setup-storage
         </main>
         <footer>
             <a href="mailto:nandorbirta@gmail.com">Contact me</a>
+            <a href="../feed.xml">RSS</a>
         </footer>
     </body>
 </html>
