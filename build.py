@@ -17,7 +17,7 @@ import git
 # Setup
 posts_dir = 'posts'
 templates_dir = 'templates'
-output_dir = 'public' 
+output_dir = 'docs' 
 
 # Create output directories if they don't exist
 os.makedirs(output_dir, exist_ok=True)

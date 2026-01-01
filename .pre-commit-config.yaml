@@ -9,7 +9,7 @@ repos:
         always_run: true
     -   id: add-built-files
         name: Add Built Files
-        entry: git add public/
+        entry: git add docs/
         language: system
         pass_filenames: false
         always_run: true
