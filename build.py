@@ -63,30 +63,53 @@ def build():
             # Get dates
             git_created, git_modified = get_git_dates(filepath)
             
-            # Determine Creation Date (Frontmatter > Git > Filesystem)
-            if 'date' in post_data:
-                date_obj = post_data['date']
-                if isinstance(date_obj, str):
-                    try:
-                        date_obj = datetime.strptime(date_obj, '%Y-%m-%d')
-                    except ValueError:
-                        date_obj = datetime.now() # Fallback
-                created_date = date_obj
-            elif git_created:
+            # Helper to make naive for comparison
+            def to_naive(dt):
+                if dt and dt.tzinfo:
+                    return dt.replace(tzinfo=None)
+                return dt
+
+            git_created = to_naive(git_created)
+            git_modified = to_naive(git_modified)
+
+            # Determine Creation Date (Git > Filesystem)
+            if git_created:
                 created_date = git_created
             else:
                 created_date = datetime.fromtimestamp(os.path.getctime(filepath))
 
-            # Determine Modified Date (Git > Filesystem)
-            if git_modified:
+            # Determine Modified Date
+            # Check if file is dirty (modified locally but not committed)
+            is_dirty = False
+            try:
+                repo = git.Repo('.', search_parent_directories=True)
+                if repo.is_dirty(path=filepath):
+                    is_dirty = True
+            except:
+                pass
+
+            if is_dirty:
+                modified_date = datetime.fromtimestamp(os.path.getmtime(filepath))
+            elif git_modified:
                 modified_date = git_modified
             else:
                 modified_date = datetime.fromtimestamp(os.path.getmtime(filepath))
+            
+            # Allow frontmatter override (optional, but requested not to rely on it)
+            if 'date' in post_data:
+                 date_obj = post_data['date']
+                 if isinstance(date_obj, str):
+                    try:
+                        date_obj = datetime.strptime(date_obj, '%Y-%m-%d')
+                    except ValueError:
+                        pass
+                 if isinstance(date_obj, datetime):
+                     created_date = date_obj
 
-            # Only show modified if it's significantly different (e.g. diff days or explicit logic)
-            # For simplicity, if they are identical (same commit), we hide modified
+            # Logic for showing modified date
             show_modified = False
-            if git_created and git_modified and git_created != git_modified:
+            # Compare just the dates (ignoring time) to avoid noise
+            if modified_date.date() > created_date.date():
                  show_modified = True
 
             # Convert Markdown to HTML

@@ -1,6 +1,5 @@
 ---
 title: "The Joy of Simple HTML"
-date: "2025-12-30"
 ---
 
 There is a certain beauty in uncomplicated solutions. 
