@@ -1,6 +1,6 @@
-# Nandi's Archive
+# An archive for my thoughts 
 
-A minimalist static site generator.
+A minimalist static site generator and the associated content.
 
 ## Usage
 
