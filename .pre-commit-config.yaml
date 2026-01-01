@@ -7,6 +7,12 @@ repos:
         language: system
         pass_filenames: false
         always_run: true
+    -   id: format-html
+        name: Format HTML (djLint)
+        entry: uv run --with djlint djlint . --reformat --quiet
+        language: system
+        pass_filenames: false
+        always_run: true
     -   id: add-built-files
         name: Add Built Files
         entry: git add docs/
