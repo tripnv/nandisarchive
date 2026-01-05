@@ -67,35 +67,6 @@
             nav a {
                 text-decoration: none;
             }
-
-            footer {
-                margin-top: 1rem;
-                border-top: 1px solid #333;
-                padding-top: 0.2rem;
-                display: flex;
-                justify-content: flex-end;
-                gap: 2rem;
-                font-size: 0.9rem;
-            }
-
-            footer a {
-                color: #666;
-                text-decoration: none;
-                display: flex;
-                align-items: center;
-            }
-
-            footer a svg {
-                fill: #666;
-            }
-
-            footer a:hover {
-                color: #fff;
-            }
-
-            footer a:hover svg {
-                fill: #fff;
-            }
         </style>
     </head>
     <body>
@@ -114,18 +85,5 @@
                 <div class="post-content">{{ content }}</div>
             </article>
         </main>
-        <footer>
-            <a href="../feed.xml" aria-label="RSS" title="RSS Feed">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                  <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="5.5" cy="18.5" r="2.5" fill="currentColor" stroke="none"/>
-                    
-                    <path d="M5.5 11.5 A 7 7 0 0 1 12.5 18.5"/>
-                    
-                    <path d="M5.5 5.5 A 13 13 0 0 1 18.5 18.5"/>
-                  </g>
-                </svg>
-            </a>
-        </footer>
     </body>
 </html>
