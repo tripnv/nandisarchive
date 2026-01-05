@@ -5,7 +5,7 @@
     <link>https://tripnv.github.io/nandisarchive/</link>
     <description>Things I've encountered, ideas I have played around with.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 05 Jan 2026 08:07:04 -0000</lastBuildDate>
+    <lastBuildDate>Mon, 05 Jan 2026 08:09:08 -0000</lastBuildDate>
     <atom:link href="https://tripnv.github.io/nandisarchive/feed.xml" rel="self" type="application/rss+xml" />
     
     <item>
@@ -28,23 +28,6 @@ ffmpeg -version
 termux-setup-storage
 </code></pre>
 <p>Additionally, I have a gemini/claude interface in a background tab, just in case I need some help. And it works like a charm.</p>]]></description>
-    </item>
-    
-    <item>
-        <title>The Joy of Simple HTML</title>
-        <link>https://tripnv.github.io/nandisarchive/posts/the-beauty-of-simple-html.html</link>
-        <guid isPermaLink="true">https://tripnv.github.io/nandisarchive/posts/the-beauty-of-simple-html.html</guid>
-        <pubDate>Thu, 01 Jan 2026 18:15:54 -0000</pubDate>
-        <description><![CDATA[<p>There is a certain beauty in uncomplicated solutions. 
-This post has been written in markdown.</p>
-<p>It is simple, clean, and effective.</p>
-<ul>
-<li>It is simple.</li>
-<li>It is clean.</li>
-<li>It converts to HTML automatically.</li>
-</ul>
-<p>It just works. 
-Unitl it doesn't; but then we will fix it.</p>]]></description>
     </item>
     
 </channel>
